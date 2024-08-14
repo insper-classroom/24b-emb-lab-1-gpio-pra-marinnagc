@@ -7,6 +7,8 @@ const int LED_PIN_P = 5;
 const int LED_PIN_B = 6;
 const int LED_PIN_Y = 7;
 
+const int LED_PIN_A  = 18;
+
 const int BTN_PIN_R= 21;
 
 int main() {
@@ -27,11 +29,14 @@ int main() {
   gpio_set_dir(LED_PIN_B, GPIO_OUT);
   gpio_init(LED_PIN_Y);
   gpio_set_dir(LED_PIN_Y, GPIO_OUT);
+  gpio_init(LED_PIN_A);
+  gpio_set_dir(LED_PIN_A, GPIO_OUT);
 
   while (true) {
     // Use delay de 300 ms entre os estados!
     if (!gpio_get(BTN_PIN_R)){
       for (int i = 0;i<512;i++){
+        gpio_put(LED_PIN_A,1);
         gpio_put(LED_PIN_R,1);
         sleep_ms(10);
         gpio_put(LED_PIN_R,0);
@@ -49,7 +54,9 @@ int main() {
         gpio_put(LED_PIN_Y,0);
 
       }
-    gpio_pull_up(BTN_PIN_R);
+      gpio_put(LED_PIN_A,0);
+      // gpio_pull_up(BTN_PIN_R);
+    
     }
   }
 }
